@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUXE — Premium Shopping</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loader" class="loader">
+    <div class="loader-inner">
+      <span class="loader-logo">LUXE</span>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Back to Top -->
+  <button id="back-to-top" class="back-to-top" title="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- ===== NAVBAR ===== -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo" onclick="showSection('home')">LUXE</a>
+
+      <nav class="nav-links" id="nav-links">
+        <a href="#" onclick="showSection('home'); closeMobileMenu()">Home</a>
+        <a href="#" onclick="showSection('shop'); closeMobileMenu()">Shop</a>
+        <a href="#" onclick="showSection('home'); scrollToSection('categories'); closeMobileMenu()">Categories</a>
+        <a href="#" onclick="showSection('home'); scrollToSection('featured'); closeMobileMenu()">Featured</a>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Search -->
+        <div class="search-wrapper">
+          <input type="text" id="search-input" class="search-input" placeholder="Search products…" oninput="handleSearch(this.value)" />
+          <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <!-- Dark/Light toggle -->
+        <button class="icon-btn" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+          <i class="fas fa-moon" id="theme-icon"></i>
+        </button>
+
+        <!-- Wishlist -->
+        <button class="icon-btn" onclick="showSection('wishlist')" title="Wishlist">
+          <i class="fas fa-heart"></i>
+          <span class="badge" id="wishlist-count">0</span>
+        </button>
+
+        <!-- Cart -->
+        <button class="icon-btn" onclick="showSection('cart')" title="Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="badge" id="cart-count">0</span>
+        </button>
+
+        <!-- Mobile hamburger -->
+        <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HOME SECTION ===== -->
+  <main id="home-section" class="section-page active">
+
+    <!-- Hero Banner -->
+    <section class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-content">
+        <span class="hero-eyebrow">New Season 2026</span>
+        <h1 class="hero-title">Discover<br><em>Extraordinary</em><br>Products</h1>
+        <p class="hero-sub">Curated collections for the discerning shopper. Premium quality, delivered to your door.</p>
+        <div class="hero-btns">
+          <button class="btn btn-primary" onclick="showSection('shop')">Shop Now <i class="fas fa-arrow-right"></i></button>
+          <button class="btn btn-ghost" onclick="scrollToSection('featured')">View Featured</button>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">30+</span><span class="stat-label">Products</span></div>
+        <div class="stat"><span class="stat-num">5</span><span class="stat-label">Categories</span></div>
+        <div class="stat"><span class="stat-num">4.9★</span><span class="stat-label">Avg Rating</span></div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories-section" id="categories">
+      <div class="container">
+        <div class="section-header">
+          <h2>Shop by <em>Category</em></h2>
+          <p>Explore our carefully curated collections</p>
+        </div>
+        <div class="categories-grid" id="categories-grid"></div>
+      </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="products-section" id="featured">
+      <div class="container">
+        <div class="section-header">
+          <h2><em>Featured</em> Products</h2>
+          <p>Hand-picked by our style experts</p>
+        </div>
+        <div class="products-grid" id="featured-grid"></div>
+      </div>
+    </section>
+
+    <!-- Best Sellers -->
+    <section class="products-section bg-alt" id="bestsellers">
+      <div class="container">
+        <div class="section-header">
+          <h2>Best <em>Sellers</em></h2>
+          <p>What everyone is loving right now</p>
+        </div>
+        <div class="products-grid" id="bestsellers-grid"></div>
+      </div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section class="products-section" id="new-arrivals">
+      <div class="container">
+        <div class="section-header">
+          <h2>New <em>Arrivals</em></h2>
+          <p>Fresh drops, just in</p>
+        </div>
+        <div class="products-grid" id="arrivals-grid"></div>
+      </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section class="promo-banner">
+      <div class="promo-content">
+        <span class="promo-tag">Limited Offer</span>
+        <h2>Up to <em>50% OFF</em> on Selected Items</h2>
+        <p>Use code <strong>LUXE2025</strong> at checkout</p>
+        <button class="btn btn-primary" onclick="showSection('shop')">Grab the Deal</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== SHOP SECTION ===== -->
+  <main id="shop-section" class="section-page">
+    <div class="container shop-container">
+      <div class="shop-header">
+        <h2>All <em>Products</em></h2>
+        <span id="product-count-label" class="product-count-label"></span>
+      </div>
+
+      <!-- Filters Bar -->
+      <div class="filters-bar">
+        <div class="filter-group">
+          <label>Category</label>
+          <select id="filter-category" onchange="applyFilters()">
+            <option value="all">All Categories</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Home & Living">Home & Living</option>
+            <option value="Beauty">Beauty</option>
+            <option value="Sports & Fitness">Sports & Fitness</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Sort By</label>
+          <select id="filter-sort" onchange="applyFilters()">
+            <option value="default">Default</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+            <option value="name-az">Name: A–Z</option>
+          </select>
+        </div>
+        <div class="filter-group search-group">
+          <label>Search</label>
+          <div class="search-inline-wrap">
+            <input type="text" id="shop-search" placeholder="Search products…" oninput="applyFilters()" />
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="products-grid" id="shop-grid"></div>
+    </div>
+  </main>
+
+  <!-- ===== CART SECTION ===== -->
+  <main id="cart-section" class="section-page">
+    <div class="container cart-container">
+      <h2>Your <em>Cart</em></h2>
+      <div class="cart-layout" id="cart-layout">
+        <div class="cart-items" id="cart-items-list"></div>
+        <div class="cart-summary" id="cart-summary"></div>
+      </div>
+      <div id="cart-empty" class="empty-state" style="display:none">
+        <i class="fas fa-shopping-bag"></i>
+        <h3>Your cart is empty</h3>
+        <p>Looks like you haven't added anything yet.</p>
+        <button class="btn btn-primary" onclick="showSection('shop')">Start Shopping</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== WISHLIST SECTION ===== -->
+  <main id="wishlist-section" class="section-page">
+    <div class="container">
+      <h2>Your <em>Wishlist</em></h2>
+      <div class="products-grid" id="wishlist-grid"></div>
+      <div id="wishlist-empty" class="empty-state" style="display:none">
+        <i class="fas fa-heart"></i>
+        <h3>Your wishlist is empty</h3>
+        <p>Save items you love for later.</p>
+        <button class="btn btn-primary" onclick="showSection('shop')">Explore Products</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== QUICK VIEW MODAL ===== -->
+  <div id="quick-view-modal" class="modal-overlay" onclick="closeQuickView(event)">
+    <div class="modal-box quick-view-box">
+      <button class="modal-close" onclick="closeQuickViewBtn()"><i class="fas fa-times"></i></button>
+      <div id="quick-view-content"></div>
+    </div>
+  </div>
+
+  <!-- ===== CHECKOUT SUCCESS MODAL ===== -->
+  <div id="checkout-modal" class="modal-overlay" onclick="closeCheckoutModal(event)">
+    <div class="modal-box checkout-box">
+      <div class="checkout-success">
+        <div class="success-icon">🎉</div>
+        <h2>Checkout Successful!</h2>
+        <p>Thank you for shopping with <strong>LUXE</strong>.<br>Your order has been placed and is being processed.</p>
+        <div class="order-info" id="order-info"></div>
+        <button class="btn btn-primary" onclick="closeCheckoutModal()">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <h3 class="footer-logo">LUXE</h3>
+        <p>Premium shopping experience, delivered to your door. Quality you can trust, style you'll love.</p>
+        <div class="social-links">
+          <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" title="Pinterest"><i class="fab fa-pinterest"></i></a>
+          <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="#" onclick="showSection('shop')">All Products</a></li>
+          <li><a href="#" onclick="filterByCategory('Electronics')">Electronics</a></li>
+          <li><a href="#" onclick="filterByCategory('Fashion')">Fashion</a></li>
+          <li><a href="#" onclick="filterByCategory('Home & Living')">Home & Living</a></li>
+          <li><a href="#" onclick="filterByCategory('Beauty')">Beauty</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Account</h4>
+        <ul>
+          <li><a href="#" onclick="showSection('cart')">My Cart</a></li>
+          <li><a href="#" onclick="showSection('wishlist')">Wishlist</a></li>
+          <li><a href="#">Orders</a></li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="#">Settings</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Help</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 LUXE. All rights reserved. Crafted with <i class="fas fa-heart" style="color:var(--accent)"></i> for the modern shopper.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
